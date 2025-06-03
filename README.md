@@ -8,3 +8,6 @@ Becket launched a radical experiment. Instead of paving predetermined routes, hi
 Becket ordered workers to **pave precisely where the grass lay worn**. The resulting paths felt magically intuitive—flowing like natural extensions of human movement, reducing congestion, and embracing landscapes. Visitors marveled at how the walkways seemed to "remember" their needs.  
 
 That year, the design stunned the International Design Awards jury. They granted it the **"Best Design of 1971"** prize, celebrating its revolutionary philosophy: **truth emerges from collective practice**. The paths weren’t drawn on paper but *forged by feet*—proving Marx’s insight that **circumstances transform through human activity**. 
+
+> *"The finest designs are fossils of behavior, etched by the footsteps of those who use them."*  
+> This project honors Becket’s legacy: **observe real-world use, then build**. 🏆
