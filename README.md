@@ -11,3 +11,12 @@ This design was awarded the 1971 World Design Award, with Becket humbly admittin
 
 > *"The finest designs are fossils of behavior, etched by the footsteps of those who use them."*  
 > This project honors Becket’s legacy: **observe real-world use, then build**. 
+
+
+## About
+
+## Requirements
+- Windows 11
+- Python 3.8+
+- psutil
+- torch
