@@ -1,19 +1,24 @@
+<input type="text" id="reasonInput" placeholder="请输入切换原因" />
 <button id="toggleBtn">状态：0</button>
 
 <script>
   let currentState = 0;
+
   document.getElementById("toggleBtn").addEventListener("click", () => {
-    currentState = 1 - currentState; // 切换状态
-    document.getElementById("toggleBtn").innerText = `状态：${currentState}`;
-    
-    // 发送当前状态到后端
+    const reason = document.getElementById("reasonInput").value.trim();
+    currentState = 1 - currentState;
+
     fetch("http://localhost:3000/api/state", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ state: currentState, timestamp: Date.now() })
+      body: JSON.stringify({
+        state: currentState,
+        reason,
+        timestamp: Date.now()
+      })
     })
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch(error => console.error("错误:", error));
+      .then((res) => res.text())
+      .then(console.log)
+      .catch(console.error);
   });
 </script>

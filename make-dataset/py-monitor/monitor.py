@@ -14,6 +14,8 @@ app = Flask(__name__)
 sampling_interval = 20
 sampling_lock = threading.Lock()
 
+event_log = []
+
 def collect_resource_data():
     while True:
         with sampling_lock:
@@ -24,6 +26,10 @@ def collect_resource_data():
         net_io = psutil.net_io_counters()
         utilization = pynvml.nvmlDeviceGetUtilizationRates(handle)
         mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+
+        matching_event = next((e for e in reversed(event_log) if abs(time.time() - e[0]/1000) < interval), None)
+        state = matching_event[1] if matching_event else ''
+        reason = matching_event[2] if matching_event else ''
         
         with open('resource_usage.csv', 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
@@ -34,7 +40,9 @@ def collect_resource_data():
                 net_io.bytes_sent, 
                 net_io.bytes_recv,
                 utilization.gpu,
-                mem_info.used
+                mem_info.used,
+                state,
+                reason
                 ])
         time.sleep(interval)
 
@@ -44,13 +52,15 @@ def handle_event():
     data = request.get_json()
     state = data.get('state')
     timestamp = data.get('timestamp')
-    print(f"接收到状态：{state}，时间戳：{timestamp}")
+    reason = data.get('reason', '')
+    event_log.append((timestamp, state, reason))
+
     if state == 1:
         with sampling_lock:
             sampling_interval = 1
-        # 1分钟后恢复为20秒
         threading.Timer(60, reset_sampling_interval).start()
     return '事件已处理', 200
+
 
 def reset_sampling_interval():
     global sampling_interval
@@ -62,7 +72,7 @@ if __name__ == '__main__':
     # 写入CSV表头
     with open('resource_usage.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['timestamp', 'cpu_usage', 'memory_percent', 'bytes_sent', 'bytes_recv'])
+        writer.writerow(['timestamp', 'cpu_usage', 'memory_percent', 'bytes_sent', 'bytes_recv', 'gpu_utilization', 'gpu_memory_used', 'state', 'reason'])
     # 启动资源采集线程
     threading.Thread(target=collect_resource_data, daemon=True).start()
     # 启动 Flask 服务器
