@@ -11,7 +11,7 @@ handle = pynvml.nvmlDeviceGetHandleByIndex(0)
 app = Flask(__name__)
 
 # 默认采样间隔为20秒
-sampling_interval = 20
+sampling_interval = 10
 sampling_lock = threading.Lock()
 
 event_log = []
@@ -65,7 +65,7 @@ def handle_event():
 def reset_sampling_interval():
     global sampling_interval
     with sampling_lock:
-        sampling_interval = 20
+        sampling_interval = 10
     print("采样间隔已重置为20秒")
 
 if __name__ == '__main__':

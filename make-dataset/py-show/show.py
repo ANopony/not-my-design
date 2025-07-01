@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('resource_usage.csv')
+df = pd.read_csv('../py-monitor/resource_usage.csv')
 df['timestamp'] = pd.to_datetime(df['timestamp'])
 
 plt.figure(figsize=(12, 6))

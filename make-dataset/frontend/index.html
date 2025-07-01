@@ -1,5 +1,5 @@
 <input type="text" id="reasonInput" placeholder="请输入切换原因" />
-<button id="toggleBtn">状态：0</button>
+<button id="toggleBtn">切换状态：0</button>
 
 <script>
   let currentState = 0;
@@ -8,7 +8,10 @@
     const reason = document.getElementById("reasonInput").value.trim();
     currentState = 1 - currentState;
 
-    fetch("http://localhost:3000/api/state", {
+    // 修改按钮文字
+    document.getElementById("toggleBtn").textContent = `切换状态：${currentState}`;
+
+    fetch("http://localhost:18140/api/state", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
