@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>切换状态</title>
+  <style>
+    body { font-family: sans-serif; padding: 10px; }
+    input, button { width: 100%; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <input type="text" id="reasonInput" placeholder="请输入切换原因" />
+  <button id="toggleBtn">切换状态：0</button>
+
+  <script>
+    let currentState = 0;
+
+    document.getElementById("toggleBtn").addEventListener("click", () => {
+      const reason = document.getElementById("reasonInput").value.trim();
+      currentState = 1 - currentState;
+      document.getElementById("toggleBtn").textContent = `切换状态：${currentState}`;
+
+      fetch("http://localhost:18140/api/state", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          state: currentState,
+          reason,
+          timestamp: Date.now()
+        })
+      })
+        .then((res) => res.text())
+        .then(console.log)
+        .catch((err) => {
+          console.error("请求失败：", err);
+          alert("无法连接后端服务，请确认后端已启动");
+        });
+    });
+  </script>
+</body>
+</html>
