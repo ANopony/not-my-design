@@ -38,3 +38,10 @@ node index.js
 - 所有采集结果写入 `resource_usage.csv`
 
 如需部署为网站，可使用 Nginx、Vite、或任何静态服务器工具托管 frontend 目录
+
+
+
+pip install pyinstaller
+pyinstaller --noconsole --onefile your_flask_app.py
+npm install electron-builder --save-dev
+npx electron-builder

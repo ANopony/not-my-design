@@ -1,12 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('../py-monitor/resource_usage.csv')
+df = pd.read_csv(r"C:\File\PycharmProjects\not-my-design\dataset\resource_usage_0721_3.csv", encoding="gbk", nrows=1200)
 df['timestamp'] = pd.to_datetime(df['timestamp'])
 
 plt.figure(figsize=(12, 6))
 plt.plot(df['timestamp'], df['cpu_usage'], label='CPU Usage (%)')
 plt.plot(df['timestamp'], df['memory_percent'], label='Memory Usage (%)')
+plt.plot(df['timestamp'], df['gpu_utilization'], label='GPU Utilization (%)')
 
 # 标记切换点
 for i, row in df.iterrows():

@@ -1,2 +1,12 @@
 /make-dataset/node-server/node_modules
-/make-dataset/node-server/package-lock.json
+/myapp/tray/node_modules
+/myapp/tray/monitor
+.conda/
+package-lock.json
+dist/
+build/
+*.zip
+*.exe
+*.csv
+*.npz
+*.h5
